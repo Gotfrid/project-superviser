@@ -1,0 +1,9 @@
+[submodule "project-backend"]
+	path = project-backend
+	url = https://github.com/Gotfrid/project-backend
+[submodule "project-frontend"]
+	path = project-frontend
+	url = https://github.com/Gotfrid/project-frontend
+[submodule "project-testing"]
+	path = project-testing
+	url = https://github.com/Gotfrid/project-testing
