@@ -5,8 +5,6 @@ services:
     image: project-backend:latest
     pull_policy: never
     restart: unless-stopped
-    ports:
-    - 8000:8000
     healthcheck:
       test: curl -f http://localhost:8000
       interval: 5s
@@ -19,8 +17,6 @@ services:
     image: project-frontend:latest
     pull_policy: never
     restart: unless-stopped
-    ports:
-    - 4173:4173
   cypress:
     container_name: cypress
     image: project-testing:latest
