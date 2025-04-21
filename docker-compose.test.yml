@@ -1,0 +1,32 @@
+services:
+  backend:
+    attach: false
+    container_name: backend
+    image: project-backend:latest
+    pull_policy: never
+    restart: unless-stopped
+    ports:
+    - 8000:8000
+    healthcheck:
+      test: curl -f http://localhost:8000
+      interval: 5s
+      retries: 10
+      start_period: 10s
+      timeout: 1s
+  frontend:
+    attach: false
+    container_name: frontend
+    image: project-frontend:latest
+    pull_policy: never
+    restart: unless-stopped
+    ports:
+    - 4173:4173
+  cypress:
+    container_name: cypress
+    image: project-testing:latest
+    pull_policy: never
+    depends_on:
+      backend:
+        condition: service_healthy
+    volumes:
+      - ./cypress_output:/cypress/screenshots
