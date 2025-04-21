@@ -9,9 +9,9 @@ build:
 up:
   docker compose up
 
-up-cypress:
+up-test:
 	docker compose -f docker-compose.test.yml up
 
 deploy: fetch build up
 
-test: fetch build up-cypress
+test: fetch build up-test
