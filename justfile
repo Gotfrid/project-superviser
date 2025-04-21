@@ -6,6 +6,9 @@ fetch:
 build:
   docker buildx bake
 
+build-test:
+	API_URL="http://backend:8000" docker buildx bake
+
 up:
   docker compose up
 
@@ -14,4 +17,4 @@ up-test:
 
 deploy: fetch build up
 
-test: fetch build up-test
+test: fetch build-test up-test
