@@ -1,5 +1,6 @@
 services:
   backend:
+    profiles: [cypress, playwright]
     attach: false
     container_name: backend
     image: project-backend:latest
@@ -12,12 +13,14 @@ services:
       start_period: 10s
       timeout: 1s
   frontend:
+    profiles: [cypress, playwright]
     attach: false
     container_name: frontend
     image: project-frontend:latest
     pull_policy: never
     restart: unless-stopped
   cypress:
+    profiles: [cypress]
     container_name: cypress
     image: project-testing:latest
     pull_policy: never
@@ -25,4 +28,14 @@ services:
       backend:
         condition: service_healthy
     volumes:
-      - ./cypress_output:/cypress/screenshots
+      - ./test_output/cypress:/cypress/screenshots
+  playwright:
+    profiles: [playwright]
+    container_name: playwright
+    image: project-testing:latest
+    pull_policy: never
+    depends_on:
+      backend:
+        condition: service_healthy
+    volumes:
+    - ./test_output/playwright:/playwright/output
