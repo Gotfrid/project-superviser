@@ -1,5 +1,17 @@
 # Project
 
+This is an example full-stack project that spans across
+multiple repositories.
+
+This is a "supervisor" repository that handles overall
+configuration, testing, and deployment.
+
+The primary purpose of this project is to showcase how
+to conduct end-to-end testing *(a.k.a. quality assurance
+acceptance testing, regression testing)*, in a situation
+when backend, frontend and testing are all residing in
+separate repositories.
+
 ## Tech Stack
 
 - Backend: [Python](https://www.python.org/), [FastAPI](https://fastapi.tiangolo.com/), [Pytest](https://docs.pytest.org/)
