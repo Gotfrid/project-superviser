@@ -17,7 +17,7 @@ inputs:
     required: false
     default: ""
   engine:
-    description: Which e2e testing engine to use. Supported options: "cypress", "playwright".
+    description: Which e2e testing engine to use. Supported options are "cypress", "playwright".
     required: true
     default: cypress
 runs:
