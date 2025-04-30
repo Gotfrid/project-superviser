@@ -28,16 +28,21 @@ runs:
       token: ${{ inputs.token }}
       repository: ${{ inputs.parent }}
       submodules: true
-  - uses: extractions/setup-just@v2
-  - run: |
+  - name: Install just
+    uses: extractions/setup-just@v2
+  - name: Checkout feature branch
+    shell: bash
+    run: |
       cd ${{ inputs.child }}
       git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
       git fetch
       git checkout ${{ inputs.branch }}
       cd ..
   - name: Run Cypress testing
+    shell: bash
     run: just test-cy
     if: ${{ inputs.engine }} == "cypress"
   - name: Run Playwright testing
+    shell: bash
     run: just test-pw
     if: ${{ inputs.engine }} == "playwright"
