@@ -1,0 +1,43 @@
+name: Run integration test
+description: Test that backend and frontend work together
+inputs:
+  parent:
+    description: Parent repository in the form of <org>/<repo>
+    required: true
+    default: Gotfrid/project-supervisor
+  child:
+    description: Name of the submodule. This value should match the repository name of the project that is trying to update it's parent repo submodule ref.
+    required: true
+  branch:
+    description: Branch name
+    required: true
+    default: main
+  token:
+    description: Github Personal Access Token to access private repositories
+    required: false
+    default: ""
+  engine:
+    description: Which e2e testing engine to use. Supported options: "cypress", "playwright".
+    required: true
+    default: cypress
+runs:
+  using: "composite"
+  steps:
+  - uses: actions/checkout@v4
+    with:
+      token: ${{ inputs.token }}
+      repository: ${{ inputs.parent }}
+      submodules: true
+  - uses: extractions/setup-just@v2
+  - run: |
+      cd ${{ inputs.child }}
+      git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+      git fetch
+      git checkout ${{ inputs.branch }}
+      cd ..
+  - name: Run Cypress testing
+    run: just test-cy
+    if: ${{ inputs.engine }} == "cypress"
+  - name: Run Playwright testing
+    run: just test-pw
+    if: ${{ inputs.engine }} == "playwright"
