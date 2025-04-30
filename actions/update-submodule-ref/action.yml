@@ -4,6 +4,7 @@ inputs:
   parent:
     description: Parent repository in the form of <org>/<repo>
     required: true
+    default: Gotfrid/project-supervisor
   child:
     description: Name of the submodule. This value should match the repository name of the project that is trying to update it's parent repo submodule ref.
     required: true
