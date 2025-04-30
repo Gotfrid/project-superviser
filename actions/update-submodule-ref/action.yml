@@ -1,0 +1,33 @@
+name: Update submodule refs
+description: Fetch parent repository and update the corresponding submodule reference.
+inputs:
+  parent:
+    description: Parent repository in the form of <org>/<repo>
+    required: true
+  child:
+    description: Name of the submodule. This value should match the repository name of the project that is trying to update it's parent repo submodule ref.
+    required: true
+  token:
+    description: Github Personal Access Token to access private repositories
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+  - name: Checkout parent repo
+    uses: actions/checkout@v4
+    with: 
+      repository: ${{ inputs.parent }}
+      token: ${{ inputs.token }}
+      submodules: true
+  - name: Fetch all submodules
+    run: |
+      git submodule update --init --recursive
+      git submodule update --recursive --remote
+  - name: Commit updated submodule refs
+    run: |
+      git config user.email "actions@github.com"
+      git config user.name "GitHub Actions"
+      git add --all
+      git commit -m "actions: update submodule: ${{ inputs.child }}" || echo "No changes to commit"
+      git push
