@@ -20,13 +20,20 @@ separate repositories.
 - Deploymet: [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/), [Docker Bake](https://docs.docker.com/build/bake/)
 - Misc: [Justfile](https://just.systems/man/en/), [Github](https://github.com/)
 
-## Deployment
+## Running
 
 Fetch latest changes from main, build docker images,
 and run the docker-compose stack with FE & BE.
 
 ```sh
-just deploy
+just run
+```
+
+Alternatively, run `just` commands separately to have better control
+over what and how is built and run.
+
+```sh
+just --list
 ```
 
 ## Testing
