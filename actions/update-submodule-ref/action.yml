@@ -22,10 +22,12 @@ runs:
       token: ${{ inputs.token }}
       submodules: true
   - name: Fetch all submodules
+    shell: bash
     run: |
       git submodule update --init --recursive
       git submodule update --recursive --remote
   - name: Commit updated submodule refs
+    shell: bash
     run: |
       git config user.email "actions@github.com"
       git config user.name "GitHub Actions"
